@@ -36,7 +36,7 @@ $td = ['ex1' => [
             'ex7',
             ];
 $th = [ 0 => "Name", "Age", "Occupation", "Adress"];
-$data = $app->table->getTable($td, $th, true, 3);
+$data = $table->getTable($td, $th, true, 3);
 
 ?>
 
