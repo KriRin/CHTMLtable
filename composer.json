@@ -1,0 +1,22 @@
+{
+    "name": "kri/chtmltable",    
+    "type": "library",
+    "description": "Class for HTML tables",
+    "keywords": ["html", "table", "test"],
+    "homepage": "https://github.com/KriRin/CHTMLtable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kristofer Ringstrand",
+            "email": "KriRin@users.noreply.github.com",
+            "homepage": "https://github.com/KriRin",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "autoload": {
+        "psr-4": { "Kri\\": "src/" }
+    }
+}
