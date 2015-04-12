@@ -11,7 +11,7 @@ It was made for with [Anax-MVC](https://github.com/mosbth/Anax-MVC) but can be u
 
 -------------
 ##Install in Anax
-Add [rcus/htmltable](https://packagist.org/packages/rcus/htmltable) to your composer.json file with `require`.
+Add to your composer.json file with `require`.
 
     "require": {
         ...
