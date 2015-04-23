@@ -23,7 +23,7 @@ public function testgetTable() {
 
 
 
-/**
+
 public function testgetTablePagering() {
     $obj = new \Kri\HTMLtable\CHTMLtable();
     
@@ -63,7 +63,7 @@ public function testgetTablePagering() {
 
     $this->assertEquals($data, $exp, "Created table missmatch when enabling pagering in method getTable().");
 }
-**/
+
 
 
 
