@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/KriRin/CHTMLtable.svg?branch=master)](https://travis-ci.org/KriRin/CHTMLtable)
+
 HTMLtable
 =========
 
