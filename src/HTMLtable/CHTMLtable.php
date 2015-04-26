@@ -12,9 +12,6 @@ namespace Kri\HTMLtable;
 class CHTMLtable {
 
 
-private $maxpages;
-
-
 /**
  * Generates html code for a table.
  * 
@@ -40,9 +37,10 @@ public function getTable($td = [], $th = [null], $pageringStatus = false, $maxro
     if($pageringStatus === true) {
         $pagering = $this->getPageNavigation($td, $maxrows);
         $chunkTd = array_chunk($td, $maxrows);
-        $page = $this->getPage();
-        for($i=1; $i<=$this->maxpages; $i++) {
-            if($page == $i) {
+        $maxpages = $this->calcMaxpages(count($td), $maxrows);
+        
+        for($i=1; $i<=$maxpages; $i++) {
+            if($this->getPage() == $i) {
                 foreach(current($chunkTd) as $val) {
                 $table .= $this->assignHtmlToTable($val);
                 }
@@ -114,17 +112,13 @@ private function getPage() {
  */
 private function getPageNavigation($td, $maxrows, $min=1) {
     $page = $this->getPage();
-    $rows = count($td);
-    $this->maxpages = $rows/$maxrows;
-    if($this->maxpages > (int)$this->maxpages) {
-        $this->maxpages = (int)$this->maxpages + 1;
-    }
+    $maxpages = $this->calcMaxpages(count($td), $maxrows);
     $chunkTd = array_chunk($td, $maxrows);
     
     $nav = ($page != $min) ? "<a href='" . $this->getQueryString(array('page' => $min)) . "'>&lt;&lt;</a> " : '&lt;&lt; ';
     $nav .= ($page > $min) ? "<a href='" . $this->getQueryString(array('page' => ($page > $min ? $page - 1 : $min) )) . "'>&lt;</a> " : '&lt; ';
 
-    for($i=$min; $i<=$this->maxpages; $i++) {
+    for($i=$min; $i<=$maxpages; $i++) {
         if($page == $i) {
             $nav .= "$i ";
         }
@@ -136,13 +130,25 @@ private function getPageNavigation($td, $maxrows, $min=1) {
         
     }
 
-    $nav .= ($page < $this->maxpages) ? "<a href='" . $this->getQueryString(array('page' => ($page < $this->maxpages ? $page + 1 : $this->maxpages) )) . "'>&gt;</a> " : '&gt; ';
-    $nav .= ($page != $this->maxpages) ? "<a href='" . $this->getQueryString(array('page' => $this->maxpages)) . "'>&gt;&gt;</a> " : '&gt;&gt; ';
+    $nav .= ($page < $maxpages) ? "<a href='" . $this->getQueryString(array('page' => ($page < $maxpages ? $page + 1 : $maxpages) )) . "'>&gt;</a> " : '&gt; ';
+    $nav .= ($page != $maxpages) ? "<a href='" . $this->getQueryString(array('page' => $maxpages)) . "'>&gt;&gt;</a> " : '&gt;&gt; ';
     return $nav;
 }
 
 
-
+/**
+ * @param int $rows number of rows/enteries in table.
+ * @param int $maxrows number of rows user want to display.
+ * 
+ * assign value to $maxpages.
+ */
+private function calcMaxpages($rows, $maxrows) {
+    $maxpages = $rows/$maxrows;
+    if($maxpages > (int)$maxpages) {
+        $maxpages = (int)$maxpages + 1;
+    }
+    return $maxpages;
+}
 
 
 /**
