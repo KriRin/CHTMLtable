@@ -37,23 +37,14 @@ public function getTable($td = [], $th = [null], $pageringStatus = false, $maxro
     }
     
     
-    if($pageringStatus == true) {
+    if($pageringStatus === true) {
         $pagering = $this->getPageNavigation($td, $maxrows);
         $chunkTd = array_chunk($td, $maxrows);
         $page = $this->getPage();
         for($i=1; $i<=$this->maxpages; $i++) {
             if($page == $i) {
                 foreach(current($chunkTd) as $val) {
-                    $table .= "<tr>";
-                    if(is_array($val)) {
-                        foreach($val as $var) {
-                            $table .= "<td>$var</td>";
-                        }
-                    }
-                    else {
-                        $table .= "<td>$val</td>";
-                    }
-                    $table .= "</tr>";
+                $table .= $this->assignHtmlToTable($val);
                 }
             }
             next($chunkTd);
@@ -65,22 +56,35 @@ public function getTable($td = [], $th = [null], $pageringStatus = false, $maxro
     
     else {
         foreach($td as $val) {
-            $table .= "<tr>";
-            if(is_array($val)) {
-                foreach($val as $var) {
-                    $table .= "<td>$var</td>";
-                }
-            }
-            else {
-                $table .= "<td>$val</td>";
-            }
-            $table .= "</tr>";
+            $table .= $this->assignHtmlToTable($val);
         }
         $table .= "</table>";
     }
-    
+
     return $table;
 }
+
+
+
+/**
+ * @param val is the value from the array to put in the table.
+ * @return string table with or without pagering.
+*/
+private function assignHtmlToTable($val) {
+    $table = "<tr>";
+    if(is_array($val)) {
+        foreach($val as $var) {
+            $table .= "<td>$var</td>";
+        }
+    }
+    else {
+        $table .= "<td>$val</td>";
+    }
+    $table .= "</tr>";
+    return $table;
+}
+
+
 
 
 /**
@@ -125,12 +129,13 @@ private function getPageNavigation($td, $maxrows, $min=1) {
             $nav .= "$i ";
         }
         else {
-            $curPage = current($chunkTd);
+            current($chunkTd);
             $nav .= "<a href='" . $this->getQueryString(array('page' => $i)) . "'>$i</a> ";
-            $curPage = next($chunkTd);
+            next($chunkTd);
         }
+        
     }
-    
+
     $nav .= ($page < $this->maxpages) ? "<a href='" . $this->getQueryString(array('page' => ($page < $this->maxpages ? $page + 1 : $this->maxpages) )) . "'>&gt;</a> " : '&gt; ';
     $nav .= ($page != $this->maxpages) ? "<a href='" . $this->getQueryString(array('page' => $this->maxpages)) . "'>&gt;&gt;</a> " : '&gt;&gt; ';
     return $nav;
