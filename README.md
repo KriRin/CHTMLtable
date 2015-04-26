@@ -49,8 +49,6 @@ Full example can be found in chtmltable/webroot/page-with-table.php **and** page
 
 
 
-
-
 About
 -----
 ###Requirements
