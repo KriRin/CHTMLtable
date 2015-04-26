@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/KriRin/CHTMLtable.svg?branch=master)](https://travis-ci.org/KriRin/CHTMLtable)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/KriRin/CHTMLtable/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/KriRin/CHTMLtable/?branch=master)
 
 HTMLtable
 =========
